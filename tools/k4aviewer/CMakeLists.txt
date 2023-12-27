@@ -104,6 +104,14 @@ add_executable(k4aviewer WIN32 ${SOURCE_FILES})
 target_link_libraries(k4aviewer PRIVATE ${EXTERNAL_LIBRARIES})
 
 
+file(GLOB DEPTHENGINE "${CMAKE_CURRENT_SOURCE_DIR}/../../extern/depthengine/*.dll")
+message("Copy depthengine dll")
+add_custom_command(TARGET k4aviewer PRE_BUILD
+	# COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CONFIGS} $<TARGET_FILE_DIR:4d-gaussians>/configs/*
+	COMMAND ${CMAKE_COMMAND} -E copy ${DEPTHENGINE} $<TARGET_FILE_DIR:k4aviewer>/
+	COMMAND_EXPAND_LISTS
+)
+
 # Setup install
 include(GNUInstallDirs)
 
